@@ -175,35 +175,34 @@ cout << "step7" << endl;
     float phi;
     float rhodot;
 
-    rho = sqrt(px*px + py*py);
 
     // Avoid Divide by Zero throughout the Implementation
-	if(fabs(px) < 0.0001 or fabs(py) < 0.0001)
-	{
-        if(fabs(px) < 0.0001)
+    if(fabs(px) < 0.0001 or fabs(py) < 0.0001)
+    {
+        	if(fabs(px) < 0.0001)
 		{
-          px = 0.0001; 
-        }
+          		px = 0.0001; 
+        	}
 
-        if(fabs(py) < 0.0001)
+        	if(fabs(py) < 0.0001)
 		{
-          py = 0.0001;
-        }
-        cout << "step8" << endl;
-        rho = sqrt(px*px + py*py);
-	//set phi  and radial velocity to zero
-        phi = 0;	
-        rhodot = 0;	
+          		py = 0.0001;
+        	}
+        	cout << "step8" << endl;
+        	rho = sqrt(px*px + py*py);
+		//set phi  and radial velocity to zero
+        	phi = 0;	
+        	rhodot = 0;	
   
-
     } else {
-	cout << "step9" << endl;
-        rho = sqrt(px*px + py*py);
-        phi = atan2(py,px);
-        rhodot = (px*vx + py*vy) /rho;
-	}
+		cout << "step9" << endl;
+        	rho = sqrt(px*px + py*py);
+        	phi = atan2(py,px);
+       	 	rhodot = (px*vx + py*vy) /rho
+    }
     
 	// measurements h(x)
+        ekf_.hx_ = VectorXd(3);
 	ekf_.hx_ << rho, phi, rhodot;
 	ekf_.R_ = R_radar_;
 
