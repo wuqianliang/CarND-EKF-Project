@@ -68,23 +68,24 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
     ekf_.x_ = VectorXd(4);
     ekf_.x_ << 1, 1, 1, 1;
 
-	//state covariance matrix P
-	ekf_.P_ = MatrixXd(4, 4);
-	ekf_.P_ << 1, 0, 0, 0,
+    //state covariance matrix P
+    ekf_.P_ = MatrixXd(4, 4);
+    ekf_.P_ << 1, 0, 0, 0,
 			0, 1, 0, 0,
 			0, 0, 1000, 0,
 			0, 0, 0, 1000;		
-	//the initial transition matrix F_
-	ekf_.F_ = MatrixXd(4, 4);
-	ekf_.F_ << 1, 0, 1, 0,
+    //the initial transition matrix F_
+    ekf_.F_ = MatrixXd(4, 4);
+    ekf_.F_ << 1, 0, 1, 0,
 			0, 1, 0, 1,
 			0, 0, 1, 0,
 			0, 0, 0, 1;
-
+cout << "step1" << endl;
     if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
 
 		previous_timestamp_ = measurement_pack.timestamp_;
 
+cout << "step2" << endl;
         //Convert radar from polar to cartesian coordinates and initialize state.
         float rho = measurement_pack.raw_measurements_(0);
         float phi =  measurement_pack.raw_measurements_(1);
@@ -97,15 +98,16 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
     }
     else if (measurement_pack.sensor_type_ == MeasurementPackage::LASER) {
 
-	  	ekf_.x_ << measurement_pack.raw_measurements_[0], measurement_pack.raw_measurements_[1], 0, 0;
-
-		if (fabs(ekf_.x_(0)) < 0.0001)
-		{
-			fabs(ekf_.x_(0) = 0.01;
-		}
+cout << "step3" << endl;
+	  	ekf_.x_ << measurement_pack.raw_measurements_[0],measurement_pack.raw_measurements_[1], 0, 0;
+                // Modify if px,py are too small
+        if (fabs(ekf_.x_(0)) < 0.0001)
+        {
+        	ekf_.x_(0) = 0.01;
+        }
 		if (fabs(ekf_.x_(1)) < 0.0001)
 		{
-			fabs(ekf_.x_(1) = 0.01;
+			ekf_.x_(1) = 0.01;
 		}
     }
 
@@ -127,6 +129,7 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
      * Use noise_ax = 9 and noise_ay = 9 for your Q matrix.
    */
 
+cout << "step5" << endl;
   //compute the time elapsed between the current and previous measurements
   float dt = (measurement_pack.timestamp_ - previous_timestamp_) / 1000000.0;	//dt - expressed in seconds
   previous_timestamp_ = measurement_pack.timestamp_;
@@ -147,8 +150,10 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
 			   dt_3/2*noise_ax, 0, dt_2*noise_ax, 0,
 			   0, dt_3/2*noise_ay, 0, dt_2*noise_ay;
 
+cout << "step6" << endl;
   ekf_.Predict();
 
+cout << "step7" << endl;
   /*****************************************************************************
    *  Update
    ****************************************************************************/
@@ -161,12 +166,12 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
 
   if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
 
-	float px = ekf_.x_[0];
+    float px = ekf_.x_[0];
     float py = ekf_.x_[1];
     float vx = ekf_.x_[2];
     float vy = ekf_.x_[3];
 
-	float rho;
+    float rho;
     float phi;
     float rhodot;
 
@@ -184,13 +189,15 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
 		{
           py = 0.0001;
         }
-        
+        cout << "step8" << endl;
         rho = sqrt(px*px + py*py);
-		//set phi  and radial velocity to zero
+	//set phi  and radial velocity to zero
         phi = 0;	
         rhodot = 0;	
   
+
     } else {
+	cout << "step9" << endl;
         rho = sqrt(px*px + py*py);
         phi = atan2(py,px);
         rhodot = (px*vx + py*vy) /rho;
@@ -200,17 +207,21 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
 	ekf_.hx_ << rho, phi, rhodot;
 	ekf_.R_ = R_radar_;
 
-	ekf_.Hj_ = tools.CalculateJacobian(ekf_.x_); //H_jacob is calculated
-	ekf_.H_ = ekf_.Hj_; //H-jacobian is passed
+	Hj_ = tools.CalculateJacobian(ekf_.x_); //H_jacob is calculated
+	ekf_.H_ = Hj_; //H-jacobian is passed
+cout << "step10" << endl;
 
     // Radar updates
 	ekf_.UpdateEKF(measurement_pack.raw_measurements_);
 
+cout << "step11" << endl;
   } else {
     // Laser updates
     ekf_.R_ = R_laser_;
     ekf_.H_ = H_laser_;
+cout << "step12" << endl;
 	ekf_.Update(measurement_pack.raw_measurements_);
+cout << "step13" << endl;
   }
 
   // print the output

@@ -61,7 +61,7 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
 
 	// Angle phi in the y vector should be adjusted so that it is between -pi and pi.
     bool between_minus_pi_and_pi = false;
-	phi = y(1);
+    float phi = y(1);
     while (between_minus_pi_and_pi == false) {
       if (phi > 3.14159) {
         phi = phi - 6.2831;
