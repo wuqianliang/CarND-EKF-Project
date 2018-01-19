@@ -179,9 +179,9 @@ cout << "step7" << endl;
     // Avoid Divide by Zero throughout the Implementation
     if(fabs(px) < 0.0001 or fabs(py) < 0.0001)
     {
-        	if(fabs(px) < 0.0001)
-		{
-          		px = 0.0001; 
+       	if(fabs(px) < 0.0001)
+	{
+       	    px = 0.0001; 
         	}
 
         	if(fabs(py) < 0.0001)
@@ -198,7 +198,7 @@ cout << "step7" << endl;
 		cout << "step9" << endl;
         	rho = sqrt(px*px + py*py);
         	phi = atan2(py,px);
-       	 	rhodot = (px*vx + py*vy) /rho
+       	 	rhodot = (px*vx + py*vy) /rho;
     }
     
 	// measurements h(x)
