@@ -102,14 +102,14 @@ void FusionEKF::ProcessMeasurement( const MeasurementPackage &measurement_pack )
 			ekf_.x_ << measurement_pack.raw_measurements_[0], measurement_pack.raw_measurements_[1], 0, 0;
 
 			/* Modify if px,py are too small */
-			/*if ( fabs( ekf_.x_( 0 ) ) < 0.000001 )
+			if ( fabs( ekf_.x_( 0 ) ) < 0.000001 )
 			{
 				ekf_.x_( 0 ) = 0.000001;
 			}
 			if ( fabs( ekf_.x_( 1 ) ) < 0.000001 )
 			{
 				ekf_.x_( 1 ) = 0.000001;
-			}*/
+			}
 		}
 
 		previous_timestamp_	= measurement_pack.timestamp_;
@@ -169,7 +169,7 @@ void FusionEKF::ProcessMeasurement( const MeasurementPackage &measurement_pack )
 	if ( measurement_pack.sensor_type_ == MeasurementPackage::RADAR )
 	{
                 /* Calculate H_jacob */
-		Hj_	= tools.CalculateJacobian( ekf_.x_ );   
+		Hj_ = tools.CalculateJacobian( ekf_.x_ );   
 
 		/* Radar updates */
 		ekf_.H_ = Hj_;                                  
