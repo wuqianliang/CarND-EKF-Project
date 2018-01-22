@@ -1,7 +1,9 @@
 #include "kalman_filter.h"
-
+#include <math.h>
 using Eigen::MatrixXd;
 using Eigen::VectorXd;
+
+const float Float_2PI = 2 * M_PI;
 
 // Please note that the Eigen library does not initialize 
 // VectorXd or MatrixXd objects with zeros upon creation.
@@ -52,25 +54,47 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   /**
     * update the state by using Extended Kalman Filter equations
   */
-    // h(x)
- 	VectorXd z_pred = hx_;  
-	VectorXd y = z - z_pred;
 
-	// Angle phi in the y vector should be adjusted so that it is between -pi and pi.
+    float   px      = x_[0];
+    float   py      = x_[1];
+    float   vx      = x_[2];
+    float   vy      = x_[3];
+
+    float   rho;
+    float   phi;
+    float   rhodot;
+
+    rho     = sqrt( px * px + py * py );
+    /* Avoid Divide by Zero throughout the Implementation */
+    if( rho < 0.000001)
+      rho = 0.000001;
+
+    phi     = atan2( py, px );
+    rhodot  = (px * vx + py * vy) / rho;
+
+    /* Measurements h(x) */
+    VectorXd z_pred = VectorXd( 3 );
+    z_pred  << rho, phi, rhodot;
+
+    VectorXd y = z - z_pred;
+
+    // Normalize angle phi in the y vector between -pi and pi.
     bool between_minus_pi_and_pi = false;
-    float phi = y(1);
+    phi = y(1);
     while (between_minus_pi_and_pi == false) {
-      if (phi > 3.14159) {
-        phi = phi - 6.2831; //-2pi
+      if (phi > M_PI) {
+        phi = phi - Float_2PI; //-2pi
       }
-      else if (phi < -3.14159) {
-        phi = phi + 6.2831;//2pi
+      else if (phi < -M_PI) {
+        phi = phi + Float_2PI;//2pi
       } 
-	  else {
+      else {
         between_minus_pi_and_pi = true;
       }
     }
-    
+
+    y(1) = phi;
+
     MatrixXd Ht = H_.transpose();
     MatrixXd S = H_ * P_ * Ht + R_;
     MatrixXd Si = S.inverse();
