@@ -33,7 +33,7 @@ FusionEKF::FusionEKF()
 
 	/* measurement covariance matrix - radar */
 	R_radar_ << 0.09, 0, 0,
-	0, 0.0006, 0,
+	0, 0.0005, 0,
 	0, 0, 0.09;
 
 
@@ -184,6 +184,6 @@ void FusionEKF::ProcessMeasurement( const MeasurementPackage &measurement_pack )
 	}
         
 	/* print the output */
-	cout << "x_ = " << ekf_.x_(0)<<" , "<< ekf_.x_(1) << " , " << ekf_.x_(2) << " , " << ekf_.x_(3)<< endl;
+	//cout << "x_ = " << ekf_.x_(0)<<" , "<< ekf_.x_(1) << " , " << ekf_.x_(2) << " , " << ekf_.x_(3)<< endl;
 	//cout << "P_ = " << ekf_.P_ << endl;
 }
