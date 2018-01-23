@@ -19,7 +19,14 @@ As described in [Udacity seed project](https://github.com/udacity/CarND-Extended
 + make (This will create ExtendedKF executable) 
 
 ## Running Extended Kalman Filter
+After launch the simulator, when executed ./ExtendedKF, output will be:
+>
+>     Listening to port 4567
+>     Connected!!!
+>
 
+Listening to port 4567
+Connected!!!
 # Rubric points
 
 ## Accuracy
