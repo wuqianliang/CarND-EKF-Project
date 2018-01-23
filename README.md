@@ -42,8 +42,18 @@ You can see in the above image,the final RMSE is:
 dataset1 : RMSE of \[px,py,vx,vy\] is \[0.0946,0.0833,0.4499,0.4347\]
 dataset1 : RMSE of \[px,py,vx,vy\] is \[0.0756,0.0958,0.4591,0.4941\]
 
-## Following the Correct Algorithm
+## Follows the Correct Algorithm
+### Your Sensor Fusion algorithm follows the general processing flow as taught in the preceding lessons.
+yes!!
 
+### Your Kalman Filter algorithm handles the first measurements appropriately.
+src/FusionEKF.cpp line 63 ~ 118.
+
+### Your Kalman Filter algorithm first predicts then updates.
+First predict at line 156 of src/FusionEKF.cpp then update at line 176 and line 183.
+
+### Your Kalman Filter can handle radar and lidar measurements.
+Implement measurement update at line 34 and line 53 of in src/kalman_filter.cpp
 
 ## Code Efficiency
-
+These requirements also are satisfied!
