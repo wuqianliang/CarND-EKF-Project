@@ -39,9 +39,11 @@ After switch dataset2, the final RMSE:
 # Rubric points
 ## Accuracy
 You can see in the above image,the final RMSE is:
-
+dataset1 : RMSE of \[px,py,vx,vy\] is \[0.0946,0.0833,0.4499,0.4347\]
+dataset1 : RMSE of \[px,py,vx,vy\] is \[0.0756,0.0958,0.4591,0.4941\]
 
 ## Following the Correct Algorithm
+
 
 ## Code Efficiency
 
