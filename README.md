@@ -1,4 +1,4 @@
-# CarND-EKF-Project
+# CarND-Extended-Kalman-Filter-Project
 Self-driving Car Nanodegree Extended Kalman Filter Project
 
 ## Overview
@@ -14,6 +14,9 @@ This project implemented an Extended Kalman Filter for RADAR and LIDAR sensor da
 As described in [Udacity seed project](https://github.com/udacity/CarND-Extended-Kalman-Filter-Project), when you developed in Ubuntu 16.04, you should run [install-ubuntu.sh](https://github.com/wuqianliang/CarND-EKF-Project/blob/master/install-ubuntu.sh) script to install uWebsocket and other required packages.
 
 ## Basic Build Instructions
++ Clone this repo
++ cmake .
++ make (This will create ExtendedKF executable) 
 
 ## Running Extended Kalman Filter
 
