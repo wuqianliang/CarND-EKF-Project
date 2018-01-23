@@ -24,10 +24,13 @@ After launch the simulator, when executed ./ExtendedKF, output will be:
 >     Connected!!!
 
 Following is an image of simulator:
+![Alt text](https://github.com/wuqianliang/CarND-EKF-Project/blob/master/images/simulator.png "Optional title")
 
 After emit dataset1,the green triangle is the predicted postion of object, and the final RMSE:
+![Alt text](https://github.com/wuqianliang/CarND-EKF-Project/blob/master/images/dataset1.png "Optional title")
 
 After switch dataset2, the final RMSE:
+![Alt text](https://github.com/wuqianliang/CarND-EKF-Project/blob/master/images/dataset2.png "Optional title")
 
 # Rubric points
 ## Accuracy
