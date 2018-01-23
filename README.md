@@ -23,8 +23,12 @@ After launch the simulator, when executed ./ExtendedKF, output will be:
 >     Listening to port 4567
 >     Connected!!!
 
-Listening to port 4567
-Connected!!!
+Following is an image of simulator:
+
+After emit dataset1,the green triangle is the predicted postion of object:
+
+After switch dataset2,the green triangle is the predicted postion of object:
+
 # Rubric points
 
 ## Accuracy
