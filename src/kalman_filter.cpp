@@ -80,20 +80,18 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
 
     // Normalize angle phi in the y vector between -pi and pi.
     bool between_minus_pi_and_pi = false;
-    phi = y(1);
+    
     while (between_minus_pi_and_pi == false) {
-      if (phi > M_PI) {
-        phi = phi - Float_2PI; //-2pi
+      if (y(1) > M_PI) {
+        y(1) = y(1) - Float_2PI; //-2pi
       }
-      else if (phi < -M_PI) {
-        phi = phi + Float_2PI;//2pi
+      else if (y(1) < -M_PI) {
+        y(1) = y(1) + Float_2PI;//2pi
       } 
       else {
         between_minus_pi_and_pi = true;
       }
     }
-
-    y(1) = phi;
 
     MatrixXd Ht = H_.transpose();
     MatrixXd S = H_ * P_ * Ht + R_;
