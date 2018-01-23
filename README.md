@@ -25,13 +25,14 @@ After launch the simulator, when executed ./ExtendedKF, output will be:
 
 Following is an image of simulator:
 
-After emit dataset1,the green triangle is the predicted postion of object:
+After emit dataset1,the green triangle is the predicted postion of object, and the final RMSE:
 
-After switch dataset2,the green triangle is the predicted postion of object:
+After switch dataset2, the final RMSE:
 
 # Rubric points
-
 ## Accuracy
+You can see in the above image,the final RMSE is:
+
 
 ## Following the Correct Algorithm
 
