@@ -6,6 +6,11 @@ This project implemented an Extended Kalman Filter for RADAR and LIDAR sensor da
 
 ## Prerequisites
 
++ cmake >= 3.5
++ make >= 4.1
++ gcc/g++ >= 5.4
++ [Udacity's simulator](https://github.com/udacity/self-driving-car-sim/releases)
+
 ## Basic Build Instructions
 
 ## Running Extended Kalman Filter
